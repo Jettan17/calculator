@@ -30,10 +30,10 @@ function operate(a, b, op) {
 function populate(elem, current) {
     //update display
     const display = document.querySelector(".display");
-    display.textContent = `${display.textContent}${elem}`;
+    display.textContent = `${display.textContent}${elem.className}`;
 
     //store current num
-    current = `${current}${elem}`;
+    current = `${current}${elem.className}`;
     console.log(current);
 
     return current;
@@ -49,6 +49,6 @@ const numberButtons = document.querySelectorAll(".numbers button")
 
 numberButtons.forEach(button => {
     if (button.className != "AC") {
-        button.addEventListener("click", () => {populate(button.className, current)});
+        button.addEventListener("click", (e) => {current = populate(e.target, current)});
     }
 });
