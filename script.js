@@ -48,5 +48,7 @@ let operatorActive = false;
 const numberButtons = document.querySelectorAll(".numbers button")
 
 numberButtons.forEach(button => {
-    button.addEventListener("click", () => {populate(button.className, current)});
+    if (button.className != "AC") {
+        button.addEventListener("click", () => {populate(button.className, current)});
+    }
 });
