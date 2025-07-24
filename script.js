@@ -108,9 +108,8 @@ operationButtons.forEach(button => {
             current = operate(first, second, operation).toFixed(2);
 
             //update to int if possible
-            console.log(current.slice(-1,-3))
-            if (current.slice(-1, -3) == "00") {
-                current = current.slice(0, -2);
+            if (current.slice(-2) == "00") {
+                current = current.slice(0, -3);
             }
 
             //update display
