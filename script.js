@@ -49,8 +49,7 @@ function overwrite(elem, current, display) {
 
 let first = 0;
 let second = 0;
-let operation = "+";
-let result = 0;
+let operation = "";
 let current = "";
 let operationDisplayed = false;
 const display = document.querySelector(".display");
@@ -61,6 +60,7 @@ const numberButtons = document.querySelectorAll(".numbers button")
 numberButtons.forEach(button => {
     if (button.className != "AC") {
         button.addEventListener("click", (e) => {
+            //numbers buttons
             if (!operationDisplayed) {
                 if (e.target.className != "." || !display.textContent.includes(".")) {
                     //concat display
@@ -77,6 +77,10 @@ numberButtons.forEach(button => {
             //clear button
             current = "";
             display.textContent = current;
+            first = 0;
+            second = 0;
+            operation = "";
+            operationDisplayed = false;
         })
     }
 });
@@ -97,23 +101,33 @@ operationButtons.forEach(button => {
 
                 //update display
                 display.textContent = operation;
+            } else {
+                //overwrite operation
+                operation = e.target.className;
+
+                //update display
+                display.textContent = operation;
             }
         });
     } else {
         button.addEventListener("click", () => {
-            //store second number
-            second = parseFloat(current);
+            //equals button
 
-            //get result and update display
-            current = operate(first, second, operation).toFixed(2);
+            if (operation != "") {
+                //store second number
+                second = parseFloat(current);
 
-            //update to int if possible
-            if (current.slice(-2) == "00") {
-                current = current.slice(0, -3);
+                //get result and update display
+                current = operate(first, second, operation).toFixed(2);
+
+                //update to int if possible
+                if (current.slice(-2) == "00") {
+                    current = current.slice(0, -3);
+                }
+
+                //update display
+                display.textContent = current;
             }
-
-            //update display
-            display.textContent = current;
         })
     }
 });
