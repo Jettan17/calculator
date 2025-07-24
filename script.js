@@ -52,6 +52,7 @@ let second = 0;
 let operation = "";
 let current = "";
 let operationDisplayed = false;
+let resultDisplayed = false;
 const display = document.querySelector(".display");
 
 //Number buttons logic
@@ -61,15 +62,16 @@ numberButtons.forEach(button => {
     if (button.className != "AC") {
         button.addEventListener("click", (e) => {
             //numbers buttons
-            if (!operationDisplayed) {
+            if (resultDisplayed || operationDisplayed) {
+                //overwrite display
+                current = overwrite(e.target, current, display);
+                operationDisplayed = false;
+                resultDisplayed = false;
+            } else if (!operationDisplayed) {
                 if (e.target.className != "." || !display.textContent.includes(".")) {
                     //concat display
                     current = populate(e.target, current, display);
                 }
-            } else {
-                //overwrite display
-                current = overwrite(e.target, current, display);
-                operationDisplayed = false;
             }
         });
     } else {
@@ -112,7 +114,6 @@ operationButtons.forEach(button => {
     } else {
         button.addEventListener("click", () => {
             //equals button
-
             if (operation != "") {
                 //store second number
                 second = parseFloat(current);
@@ -127,6 +128,7 @@ operationButtons.forEach(button => {
 
                 //update display
                 display.textContent = current;
+                resultDisplayed = true;
             }
         })
     }
